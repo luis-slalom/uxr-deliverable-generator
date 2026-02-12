@@ -1,0 +1,51 @@
+:root {
+  /* Colors */
+  --color-primary: #00FF88;
+  --color-secondary: #33D08F;
+  --color-background: #000000;
+  --color-text: #00FF88;
+  --color-text-secondary: #33D08F;
+
+  /* Opacity variations */
+  --color-border: rgba(0, 255, 136, 1);
+  --color-border-dim: rgba(0, 255, 136, 0.3);
+  --color-border-dimmer: rgba(0, 255, 136, 0.1);
+  --color-glow: rgba(0, 255, 136, 0.2);
+  --color-glow-bright: rgba(0, 255, 136, 0.4);
+
+  /* Typography */
+  --font-family: 'VT323', monospace;
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-md: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 48px;
+
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* Border radius */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* Shadows */
+  --shadow-sm: 0 0 15px var(--color-glow);
+  --shadow-md: 0 0 20px var(--color-glow);
+  --shadow-lg: 0 0 30px var(--color-glow-bright);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Z-index */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-modal: 1000;
+  --z-tooltip: 2000;
+}

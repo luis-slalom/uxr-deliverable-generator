@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UXR Deliverable Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'VT323', monospace;
+            background-color: #000000;
+            color: #00FF88;
+            padding: 48px 101px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1306px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            border: 1px solid #00FF88;
+            padding: 25px;
+            margin-bottom: 48px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+        }
+
+        .header-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 8px;
+        }
+
+        .system-tag {
+            color: #00FF88;
+        }
+
+        .divider {
+            color: #33D08F;
+        }
+
+        .main-title {
+            font-size: 48px;
+            line-height: 48px;
+            letter-spacing: 2.4px;
+            color: #00FF88;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            line-height: 28px;
+            color: #33D08F;
+            margin-bottom: 16px;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 16px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #33D08F;
+        }
+
+        /* Main Content Grid */
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        /* Left Column */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .section {
+            border: 1px solid #00FF88;
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+        }
+
+        .section-title {
+            font-size: 16px;
+            line-height: 24px;
+            color: #00FF88;
+            margin-bottom: 16px;
+        }
+
+        /* File Upload */
+        .upload-area {
+            border: 2px dashed rgba(0, 255, 136, 0.3);
+            padding: 40px;
+            text-align: center;
+            min-height: 222px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .upload-icon {
+            width: 48px;
+            height: 48px;
+            opacity: 0.6;
+            margin-bottom: 8px;
+        }
+
+        .upload-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #00FF88;
+            stroke-width: 4;
+            fill: none;
+        }
+
+        .upload-text {
+            font-size: 18px;
+            line-height: 28px;
+            color: #00FF88;
+        }
+
+        .upload-button {
+            border: 1px solid #00FF88;
+            padding: 12px 24px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            line-height: 24px;
+            color: #00FF88;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-button:hover {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        /* Text Area */
+        .text-area {
+            background: #000000;
+            border: 1px solid rgba(0, 255, 136, 0.5);
+            padding: 16px;
+            min-height: 128px;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+            line-height: 24px;
+            color: #33D08F;
+            resize: vertical;
+            width: 100%;
+        }
+
+        .text-area::placeholder {
+            color: #33D08F;
+        }
+
+        /* Radio Options */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-option {
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            padding: 16px 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .radio-option:hover {
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .radio-option.selected {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: #00FF88;
+        }
+
+        .radio-button {
+            width: 16px;
+            height: 16px;
+            border: 1px solid #00FF88;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .radio-option.selected .radio-button {
+            background: #00FF88;
+        }
+
+        .radio-label {
+            font-size: 18px;
+            line-height: 28px;
+            color: #00FF88;
+        }
+
+        /* Generate Button */
+        .generate-button {
+            border: 2px solid #00FF88;
+            padding: 18px;
+            text-align: center;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            line-height: 28px;
+            color: #00FF88;
+            background: transparent;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            transition: all 0.3s;
+            opacity: 0.3;
+        }
+
+        .generate-button:not(.disabled):hover {
+            background: rgba(0, 255, 136, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
+        }
+
+        .generate-button.disabled {
+            cursor: not-allowed;
+        }
+
+        /* Right Column */
+        .right-column {
+            border: 1px solid #00FF88;
+            padding: 25px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .archive-header {
+            border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+            padding-bottom: 16px;
+        }
+
+        .archive-title {
+            font-size: 20px;
+            line-height: 28px;
+            color: #00FF88;
+            margin-bottom: 8px;
+        }
+
+        .archive-count {
+            font-size: 14px;
+            line-height: 20px;
+            color: #33D08F;
+        }
+
+        .archive-empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            min-height: 228px;
+        }
+
+        .empty-icon {
+            width: 64px;
+            height: 64px;
+            opacity: 0.3;
+        }
+
+        .empty-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: #33D08F;
+            stroke-width: 5.33;
+            fill: none;
+        }
+
+        .empty-text {
+            font-size: 16px;
+            line-height: 24px;
+            color: #33D08F;
+        }
+
+        .empty-status {
+            font-size: 14px;
+            line-height: 20px;
+            color: #33D08F;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid rgba(0, 255, 136, 0.3);
+            padding-top: 25px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 14px;
+            line-height: 20px;
+            color: #33D08F;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            body {
+                padding: 32px 48px;
+            }
+
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 24px;
+            }
+
+            .main-title {
+                font-size: 32px;
+                line-height: 36px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-text">
+                <span class="system-tag">[SYSTEM]</span>
+                <span class="divider">///</span>
+            </div>
+            <h1 class="main-title">UX RESEARCH GENERATOR</h1>
+            <p class="subtitle">&gt; AUTOMATED PERSONA | JOURNEY MAP | SERVICE BLUEPRINT SYNTHESIS</p>
+            <div class="status-bar">
+                <span>STATUS: ONLINE</span>
+                <span>NODE: PRIMARY</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- File Upload Section -->
+                <section class="section">
+                    <h2 class="section-title">[01] FILE_UPLOAD</h2>
+                    <div class="upload-area">
+                        <div class="upload-icon">
+                            <svg viewBox="0 0 48 48">
+                                <path d="M6 37V17L18 13L30 17V37" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M24 13V7L30 13" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="24" y1="13" x2="24" y2="37" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <p class="upload-text">&gt; DRAG FILE OR CLICK TO UPLOAD</p>
+                        <button class="upload-button">SELECT_FILE</button>
+                    </div>
+                </section>
+
+                <!-- Prompt Input Section -->
+                <section class="section">
+                    <h2 class="section-title">[02] PROMPT_INPUT</h2>
+                    <textarea class="text-area" placeholder="&gt; ENTER ANALYSIS PARAMETERS..."></textarea>
+                </section>
+
+                <!-- Output Type Section -->
+                <section class="section">
+                    <h2 class="section-title">[03] OUTPUT_TYPE</h2>
+                    <div class="radio-group">
+                        <div class="radio-option" data-value="persona">
+                            <div class="radio-button"></div>
+                            <div class="radio-label">[A] USER_PERSONA</div>
+                        </div>
+                        <div class="radio-option" data-value="journey">
+                            <div class="radio-button"></div>
+                            <div class="radio-label">[B] JOURNEY_MAP</div>
+                        </div>
+                        <div class="radio-option selected" data-value="blueprint">
+                            <div class="radio-button"></div>
+                            <div class="radio-label">[C] SERVICE_BLUEPRINT</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Generate Button -->
+                <button class="generate-button disabled">&gt;&gt; GENERATE_OUTPUT</button>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <div class="archive-header">
+                    <h2 class="archive-title">[PROJECT_ARCHIVE]</h2>
+                    <p class="archive-count">TOTAL_RECORDS: 000</p>
+                </div>
+                <div class="archive-empty">
+                    <div class="empty-icon">
+                        <svg viewBox="0 0 64 64">
+                            <path d="M10.667 42.667V16L26.667 10.667L42.667 16V42.667" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="48" cy="16" r="5.333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="32" y1="29.333" x2="34.667" y2="29.333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="32" y1="37.333" x2="42.667" y2="37.333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <line x1="32" y1="45.333" x2="42.667" y2="45.333" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <p class="empty-text">&gt; NO_PROJECTS_FOUND</p>
+                    <p class="empty-status">AWAITING_INPUT...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">&gt; TERMINAL_SESSION_ACTIVE // 12/02/2026 // VER_1.0.0</p>
+        </footer>
+    </div>
+
+    <script>
+        // Radio button functionality
+        const radioOptions = document.querySelectorAll('.radio-option');
+        radioOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                radioOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // File upload button
+        const uploadButton = document.querySelector('.upload-button');
+        const uploadArea = document.querySelector('.upload-area');
+
+        uploadButton.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.click();
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#00FF88';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = 'rgba(0, 255, 136, 0.3)';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'rgba(0, 255, 136, 0.3)';
+            // Handle file drop
+            console.log('File dropped:', e.dataTransfer.files[0]);
+        });
+
+        // Enable/disable generate button based on inputs
+        const textArea = document.querySelector('.text-area');
+        const generateButton = document.querySelector('.generate-button');
+
+        textArea.addEventListener('input', () => {
+            if (textArea.value.trim()) {
+                generateButton.classList.remove('disabled');
+                generateButton.style.opacity = '1';
+            } else {
+                generateButton.classList.add('disabled');
+                generateButton.style.opacity = '0.3';
+            }
+        });
+    </script>
+</body>
+</html>

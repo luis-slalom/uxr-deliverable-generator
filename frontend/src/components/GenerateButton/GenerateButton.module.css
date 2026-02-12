@@ -1,0 +1,46 @@
+.generateButton {
+  border: 2px solid var(--color-border);
+  padding: 18px;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  line-height: 28px;
+  color: var(--color-primary);
+  background: transparent;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-normal);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.generateButton:not(.disabled):hover {
+  background: var(--color-border-dimmer);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.generateButton:not(.disabled):active {
+  transform: translateY(0);
+}
+
+.generateButton.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border-dim);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
