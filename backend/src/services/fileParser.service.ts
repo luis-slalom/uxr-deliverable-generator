@@ -3,6 +3,7 @@ import path from 'path';
 import { createRequire } from 'module';
 import * as XLSX from 'xlsx';
 
+// Use createRequire for CommonJS modules
 const require = createRequire(import.meta.url);
 const pdfParse = require('pdf-parse');
 const mammoth = require('mammoth');
