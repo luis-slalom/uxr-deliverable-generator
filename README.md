@@ -261,6 +261,39 @@ If you encounter errors like "does not provide an export named":
 - Located at `backend/database/uxr.db`
 - Delete and restart backend to reset database
 
+## Deployment
+
+This application can be deployed with the frontend on Vercel and the backend on Railway, Render, or Fly.io.
+
+### Quick Deploy Guide
+
+**Frontend (Vercel)**
+1. Push your code to GitHub
+2. Import repository at [vercel.com/new](https://vercel.com/new)
+3. Add environment variable: `VITE_API_URL=your-backend-url`
+4. Deploy
+
+**Backend (Railway - Recommended)**
+1. Create new project at [railway.app](https://railway.app)
+2. Connect your GitHub repository
+3. Set root directory to `backend`
+4. Add environment variables (see below)
+5. Add persistent volumes:
+   - Mount point: `/app/backend/database` (for SQLite)
+   - Mount point: `/app/backend/uploads` (for file storage)
+6. Deploy and copy the generated URL
+
+**Required Backend Environment Variables:**
+```env
+ANTHROPIC_API_KEY=your_api_key_here
+PORT=3001
+FRONTEND_URL=https://your-vercel-app.vercel.app
+DATABASE_PATH=./database/uxr.db
+UPLOAD_DIR=./uploads
+```
+
+**📚 For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md)**
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.

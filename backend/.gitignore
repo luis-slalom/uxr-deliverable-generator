@@ -7,13 +7,17 @@ dist/
 # Environment variables
 .env
 
-# Uploads directory
-uploads/
+# Uploads directory (keep directory structure with .gitkeep)
+uploads/*
+!uploads/.gitkeep
 
-# Database
-database/
+# Database (keep directory structure with .gitkeep)
+database/*
+!database/.gitkeep
 *.db
 *.db-journal
+*.db-shm
+*.db-wal
 
 # Logs
 logs/

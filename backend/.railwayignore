@@ -1,0 +1,38 @@
+# Railway ignore file - similar to .gitignore
+# These files won't be uploaded to Railway
+
+# Dependencies
+node_modules/
+
+# Development files
+*.log
+npm-debug.log*
+
+# Environment files (use Railway's env vars instead)
+.env
+.env.local
+.env.*.local
+
+# Build output (will be generated during build)
+dist/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Local database and uploads (use volumes for persistence)
+database/*.db
+database/*.db-shm
+database/*.db-wal
+uploads/*
+!uploads/.gitkeep
