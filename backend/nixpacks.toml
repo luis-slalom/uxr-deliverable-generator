@@ -1,0 +1,14 @@
+# Nixpacks configuration for Railway
+# This ensures better-sqlite3 native modules compile correctly
+
+[phases.setup]
+nixPkgs = ["nodejs_18", "python3", "gcc", "g++", "make"]
+
+[phases.install]
+cmds = ["npm ci"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "node dist/index.js"
