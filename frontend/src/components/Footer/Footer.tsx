@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
       <p className={styles.footerText}>
-        &gt; TERMINAL_SESSION_ACTIVE // {currentDate} // VER_1.0.0
+        &gt; Created by Luis Hermosilla, a Lead Experience Designer from Slalom // {currentDate} // VER_1.0.0
       </p>
     </footer>
   );
