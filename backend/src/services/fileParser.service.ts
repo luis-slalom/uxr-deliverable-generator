@@ -66,6 +66,9 @@ export class FileParserService {
     // Process all sheets
     workbook.SheetNames.forEach((sheetName) => {
       const sheet = workbook.Sheets[sheetName];
+      if (!sheet) {
+        return;
+      }
       text += `\n=== ${sheetName} ===\n`;
       text += XLSX.utils.sheet_to_csv(sheet);
       text += '\n';

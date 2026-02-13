@@ -34,6 +34,9 @@ export class ClaudeService {
 
       // Extract text from response
       const content = message.content[0];
+      if (!content) {
+        throw new Error('No content in Claude API response');
+      }
       if (content.type === 'text') {
         return content.text;
       }

@@ -11,7 +11,7 @@ if (!fs.existsSync(dbDir)) {
 }
 
 // Initialize database connection
-const db = new Database(DB_PATH, { verbose: console.log });
+const db: Database.Database = new Database(DB_PATH, { verbose: console.log });
 
 // Enable foreign keys
 db.pragma('foreign_keys = ON');

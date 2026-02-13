@@ -31,7 +31,10 @@ router.get('/', (req: Request, res: Response) => {
  */
 router.get('/:id', (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: 'Project ID is required' });
+    }
     const project = DatabaseService.getProjectById(id);
 
     if (!project) {
@@ -54,7 +57,10 @@ router.get('/:id', (req: Request, res: Response) => {
  */
 router.get('/:id/deliverables', (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: 'Project ID is required' });
+    }
     const project = DatabaseService.getProjectById(id);
 
     if (!project) {
@@ -82,8 +88,12 @@ router.get('/:id/deliverables', (req: Request, res: Response) => {
  */
 router.put('/:id', (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
     const { name } = req.body;
+
+    if (!id) {
+      return res.status(400).json({ error: 'Project ID is required' });
+    }
 
     if (!name) {
       return res.status(400).json({ error: 'Project name is required' });
@@ -111,7 +121,10 @@ router.put('/:id', (req: Request, res: Response) => {
  */
 router.delete('/:id', (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: 'Project ID is required' });
+    }
     const deleted = DatabaseService.deleteProject(id);
 
     if (!deleted) {
