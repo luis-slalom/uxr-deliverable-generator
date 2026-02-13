@@ -5,9 +5,13 @@ import styles from './PromptInput.module.css';
 const PromptInput: React.FC = () => {
   const { state, setContext } = useApp();
 
+  const isComplete = state.context.trim().length > 0;
+
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>[02] PROMPT_INPUT</h2>
+      <h2 className={styles.sectionTitle}>
+        [02] PROMPT_INPUT {isComplete && <span className={styles.checkmark}>[✓]</span>}
+      </h2>
       <textarea
         className={styles.textArea}
         placeholder="> ENTER ANALYSIS PARAMETERS..."

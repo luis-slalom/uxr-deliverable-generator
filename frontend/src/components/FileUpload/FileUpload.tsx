@@ -31,9 +31,13 @@ const FileUpload: React.FC = () => {
     multiple: true,
   });
 
+  const isComplete = state.files.length > 0;
+
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>[01] FILE_UPLOAD</h2>
+      <h2 className={styles.sectionTitle}>
+        [01] FILE_UPLOAD {isComplete && <span className={styles.checkmark}>[✓]</span>}
+      </h2>
       <div
         {...getRootProps()}
         className={`${styles.uploadArea} ${isDragActive ? styles.dragActive : ''}`}

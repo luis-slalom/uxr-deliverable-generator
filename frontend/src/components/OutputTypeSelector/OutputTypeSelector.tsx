@@ -12,9 +12,13 @@ const options = [
 const OutputTypeSelector: React.FC = () => {
   const { state, setDeliverableType } = useApp();
 
+  const isComplete = !!state.deliverableType;
+
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitle}>[03] OUTPUT_TYPE</h2>
+      <h2 className={styles.sectionTitle}>
+        [03] OUTPUT_TYPE {isComplete && <span className={styles.checkmark}>[✓]</span>}
+      </h2>
       <div className={styles.radioGroup}>
         {options.map((option) => (
           <div
