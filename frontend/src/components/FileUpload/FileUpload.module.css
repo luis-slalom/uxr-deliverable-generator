@@ -32,6 +32,24 @@
   }
 }
 
+.errorMessage {
+  background: rgba(255, 68, 68, 0.1);
+  border: 1px solid rgba(255, 68, 68, 0.5);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  color: #ff4444;
+  font-size: var(--font-size-sm);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  animation: fadeIn 0.3s ease-in;
+}
+
+.errorIcon {
+  font-weight: bold;
+  font-size: var(--font-size-md);
+}
+
 .uploadArea {
   border: 2px dashed var(--color-border-dim);
   padding: 40px;

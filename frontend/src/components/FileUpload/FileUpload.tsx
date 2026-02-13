@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { useApp } from '../../context/AppContext';
 import styles from './FileUpload.module.css';
 
 const FileUpload: React.FC = () => {
   const { state, uploadFile, removeFile } = useApp();
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const onDrop = async (acceptedFiles: File[]) => {
+    console.log('📁 Files dropped:', acceptedFiles.length);
+    setUploadError(null); // Clear previous errors
+
     for (const file of acceptedFiles) {
       try {
-        await uploadFile(file);
+        console.log('⬆️ Uploading:', file.name, file.type, file.size);
+        const result = await uploadFile(file);
+        console.log('✅ Upload successful:', result);
       } catch (error) {
-        console.error('Upload error:', error);
+        console.error('❌ Upload error:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        setUploadError(`Failed to upload ${file.name}: ${errorMessage}`);
       }
     }
   };
@@ -38,6 +46,13 @@ const FileUpload: React.FC = () => {
       <h2 className={styles.sectionTitle}>
         [01] FILE_UPLOAD {isComplete && <span className={styles.checkmark}>[✓]</span>}
       </h2>
+
+      {uploadError && (
+        <div className={styles.errorMessage}>
+          <span className={styles.errorIcon}>[!]</span> {uploadError}
+        </div>
+      )}
+
       <div
         {...getRootProps()}
         className={`${styles.uploadArea} ${isDragActive ? styles.dragActive : ''}`}
